@@ -1,0 +1,48 @@
+{
+  "name": "@md2wp/vscode",
+  "version": "0.1.0",
+  "description": "VS Code extension for publishing markdown to WordPress",
+  "keywords": [
+    "markdown",
+    "wordpress",
+    "vscode"
+  ],
+  "author": "Nicholas Hart <nickhart@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/extension.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"No tests yet\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@md2wp/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "md2wp.publish",
+        "title": "Publish to WordPress"
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "@md2wp/core",
+  "version": "0.1.0",
+  "description": "Core library for publishing markdown to WordPress",
+  "keywords": [
+    "markdown",
+    "wordpress",
+    "publishing"
+  ],
+  "author": "Nicholas Hart <nickhart@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "gray-matter": "^4.0.3",
+    "mdast": "^3.0.0",
+    "mime-types": "^2.1.35",
+    "rehype-stringify": "^10.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.1",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/mdast": "^4.0.0",
+    "@types/mime-types": "^2.1.4",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4"
+  }
+}

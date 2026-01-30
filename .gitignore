@@ -137,3 +137,19 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# macOS
+.DS_Store
+
+# Private/local files
+.private/
+.local/
+*.private.*
+*.local.*
+tmp.*
+
+# Claude Code private prompts/notes
+.claude/prompts/
+
+# md2wp cache (uploaded image tracking)
+.md2wp/
