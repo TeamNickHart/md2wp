@@ -18,4 +18,6 @@ pnpm cli publish examples/basic-post.md --dry-run
 
 ## Images
 
-Place sample images in `examples/images/` to test image upload functionality.
+Sample images provided by [Cat as a Service (cataas.com)](https://cataas.com).
+
+You can add more sample images to `examples/images/` to test image upload functionality.
