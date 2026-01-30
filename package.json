@@ -32,6 +32,9 @@
     "release": "turbo run build && changeset publish",
     "docs:dev": "turbo run dev --filter=docs",
     "docs:build": "turbo run build --filter=docs",
+    "link:cli": "cd packages/cli && pnpm link --global",
+    "unlink:cli": "cd packages/cli && pnpm unlink --global",
+    "cli": "node packages/cli/dist/cli.js",
     "prepare": "husky install"
   },
   "devDependencies": {

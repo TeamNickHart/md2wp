@@ -58,11 +58,11 @@
 - Credential storage abstraction layer
 - Automatic credential validation on load
 
-## v1.2.0 - Advanced Markdown Features
+## v1.2.0 - Advanced Markdown & Image Validation
 
-**Goal:** Support more complex markdown structures
+**Goal:** Support more complex markdown structures and comprehensive image validation
 
-### Features
+### Markdown Features
 
 - [ ] Tables → `<!-- wp:table -->`
 - [ ] Task lists → `<!-- wp:list -->` with checkboxes
@@ -71,6 +71,21 @@
 - [ ] Math equations (KaTeX)
 - [ ] Mermaid diagrams
 - [ ] Custom Gutenberg block mapping config
+
+### Full Image Validation
+
+**Current (v1.0):** Basic validation - file existence, size checking, cache lookup
+
+**Planned for v1.2:**
+
+- [ ] Image format validation (JPEG, PNG, WebP, GIF, SVG support)
+- [ ] Image dimension checking using `image-size` library
+- [ ] Dimension warnings/recommendations (e.g., optimal sizes for web)
+- [ ] Format conversion suggestions (e.g., suggest WebP for better compression)
+- [ ] Verbose mode flag (`--verbose`) for detailed validation output
+- [ ] EXIF data extraction (orientation, camera info)
+- [ ] Color profile validation
+- [ ] Accessibility checks (minimum contrast for text overlays)
 
 ### Configuration
 

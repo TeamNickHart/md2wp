@@ -7,6 +7,7 @@
 import { Command } from 'commander';
 import { version } from './index.js';
 import { initCommand } from './commands/init.js';
+import { publishCommand } from './commands/publish.js';
 
 const program = new Command();
 
@@ -32,8 +33,13 @@ program
   .description('Publish a markdown file to WordPress')
   .option('--draft', 'Publish as draft')
   .option('--dry-run', 'Show what would happen without making API calls')
-  .action((file: string, options: { draft?: boolean; dryRun?: boolean }) => {
-    console.log('TODO: Implement publish command', { file, options });
+  .action(async (file: string, options: { draft?: boolean; dryRun?: boolean }) => {
+    try {
+      await publishCommand(file, options);
+    } catch (error) {
+      console.error('Error:', (error as Error).message);
+      process.exit(1);
+    }
   });
 
 program

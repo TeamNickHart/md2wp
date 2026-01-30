@@ -13,11 +13,24 @@ export { WordPressClient } from './wordpress/client.js';
 
 // Export markdown processing
 export { parseMarkdownFile } from './markdown/parser.js';
-export { extractImages } from './markdown/images.js';
+export {
+  extractImages,
+  processImagesForDryRun,
+  type ProcessedImage,
+} from './markdown/images.js';
 export { transformToGutenberg } from './markdown/gutenberg.js';
+export {
+  validateImageFile,
+  formatBytes,
+  type ImageValidation,
+} from './markdown/image-validator.js';
 
 // Export config loader
 export { loadConfig, generateDefaultConfig, generateEnvTemplate, createWPConfig } from './config/loader.js';
 
 // Export image cache
-export { ImageCache as ImageCacheManager } from './cache/image-cache.js';
+export {
+  ImageCache as ImageCacheManager,
+  hashFile,
+  createCacheKey,
+} from './cache/image-cache.js';

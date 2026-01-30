@@ -62,7 +62,7 @@ function transformNode(
     case 'heading':
       return transformHeading(node);
     case 'paragraph':
-      return transformParagraph(node);
+      return transformParagraph(node, imageMap);
     case 'list':
       return transformList(node);
     case 'image':
@@ -94,8 +94,19 @@ function transformHeading(node: Heading): string {
 /**
  * Transform paragraph node
  */
-function transformParagraph(node: Paragraph): string {
-  const content = transformInlineContent(node.children);
+function transformParagraph(node: Paragraph, imageMap?: ImageMap): string {
+  // Check if paragraph contains only an image (or images)
+  const hasOnlyImages = node.children.every((child) => child.type === 'image');
+
+  if (hasOnlyImages && node.children.length > 0) {
+    // Transform images as block-level elements
+    return node.children
+      .filter((child) => child.type === 'image')
+      .map((child) => transformImage(child as Image, imageMap || {}))
+      .join('\n\n');
+  }
+
+  const content = transformInlineContent(node.children, imageMap);
 
   return `<!-- wp:paragraph -->
 <p>${content}</p>
@@ -212,25 +223,28 @@ function transformSeparator(): string {
 /**
  * Transform inline/phrasing content
  */
-function transformInlineContent(nodes: PhrasingContent[]): string {
-  return nodes.map((node) => transformInlineNode(node)).join('');
+function transformInlineContent(nodes: PhrasingContent[], imageMap?: ImageMap): string {
+  return nodes.map((node) => transformInlineNode(node, imageMap)).join('');
 }
 
 /**
  * Transform a single inline node
  */
-function transformInlineNode(node: PhrasingContent): string {
+function transformInlineNode(node: PhrasingContent, imageMap?: ImageMap): string {
   switch (node.type) {
     case 'text':
       return escapeHtml((node as Text).value);
     case 'strong':
-      return `<strong>${transformInlineContent((node as Strong).children)}</strong>`;
+      return `<strong>${transformInlineContent((node as Strong).children, imageMap)}</strong>`;
     case 'emphasis':
-      return `<em>${transformInlineContent((node as Emphasis).children)}</em>`;
+      return `<em>${transformInlineContent((node as Emphasis).children, imageMap)}</em>`;
     case 'inlineCode':
       return `<code>${escapeHtml((node as InlineCode).value)}</code>`;
     case 'link':
-      return transformLink(node as Link);
+      return transformLink(node as Link, imageMap);
+    case 'image':
+      // Handle inline images (though they should typically be block-level)
+      return transformInlineImage(node as Image, imageMap || {});
     case 'break':
       return '<br>';
     default:
@@ -239,11 +253,22 @@ function transformInlineNode(node: PhrasingContent): string {
 }
 
 /**
+ * Transform inline image (when mixed with text)
+ */
+function transformInlineImage(node: Image, imageMap: ImageMap): string {
+  const wpMedia = imageMap[node.url];
+  const alt = node.alt || '';
+  const src = wpMedia ? wpMedia.url : escapeHtml(node.url);
+
+  return `<img src="${src}" alt="${escapeHtml(alt)}" />`;
+}
+
+/**
  * Transform link node
  */
-function transformLink(node: Link): string {
+function transformLink(node: Link, imageMap?: ImageMap): string {
   const href = escapeHtml(node.url);
-  const content = transformInlineContent(node.children);
+  const content = transformInlineContent(node.children, imageMap);
   const title = node.title ? ` title="${escapeHtml(node.title)}"` : '';
 
   return `<a href="${href}"${title}>${content}</a>`;
