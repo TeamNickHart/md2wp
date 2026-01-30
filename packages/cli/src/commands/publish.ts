@@ -11,13 +11,116 @@ import {
   transformToGutenberg,
   ImageCacheManager,
   formatBytes,
+  updateFrontmatter,
+  createWPConfig,
+  WordPressClient,
   type ImageMap,
   type Md2wpConfig,
+  type ImageRef,
 } from '@md2wp/core';
 
 interface PublishOptions {
   draft?: boolean;
   dryRun?: boolean;
+}
+
+/**
+ * Upload images to WordPress and build image map
+ */
+async function uploadImages(
+  images: ImageRef[],
+  markdownFilePath: string,
+  client: WordPressClient,
+  cache: ImageCacheManager,
+): Promise<ImageMap> {
+  const imageMap: ImageMap = {};
+
+  // First, validate all images exist (fail fast)
+  const processed = await processImagesForDryRun(images, markdownFilePath, cache);
+
+  const missingImages = processed.filter((img) => !img.validation.exists);
+  if (missingImages.length > 0) {
+    console.error('\n❌ Missing images:');
+    missingImages.forEach((img) => {
+      console.error(`   • ${img.path}`);
+      console.error(`     ${img.absolutePath}`);
+    });
+    throw new Error(
+      `Cannot publish: ${missingImages.length} image(s) not found`,
+    );
+  }
+
+  // Process each image
+  let uploadCount = 0;
+  let cacheHitCount = 0;
+
+  for (let i = 0; i < processed.length; i++) {
+    const img = processed[i]!; // Safe: i is within array bounds
+    const progress = `[${i + 1}/${processed.length}]`;
+
+    // Check if cached
+    if (img.cacheHit && img.cachedMediaId && img.cachedUrl) {
+      // Verify media still exists in WordPress
+      console.log(`${progress} 🔍 Verifying cached image: ${img.path}`);
+      const exists = await client.verifyMedia(img.cachedMediaId);
+
+      if (exists) {
+        console.log(`${progress} ✅ Cache hit: ${img.path}`);
+        imageMap[img.path] = {
+          id: img.cachedMediaId,
+          url: img.cachedUrl,
+        };
+        cacheHitCount++;
+        continue;
+      } else {
+        console.log(
+          `${progress} ⚠️  Cached media no longer exists, re-uploading...`,
+        );
+      }
+    }
+
+    // Upload image
+    console.log(`${progress} 📤 Uploading: ${img.path}`);
+    try {
+      const response = await client.uploadMedia(img.absolutePath, img.alt);
+
+      // Add to image map
+      imageMap[img.path] = {
+        id: response.id,
+        url: response.source_url,
+      };
+
+      // Update cache
+      if (img.cacheKey) {
+        cache.set(img.cacheKey, {
+          mediaId: response.id,
+          url: response.source_url,
+          uploadedAt: new Date().toISOString(),
+        });
+      }
+
+      console.log(`${progress} ✅ Uploaded: ${response.source_url}`);
+      uploadCount++;
+    } catch (error) {
+      console.error(`${progress} ❌ Failed to upload: ${img.path}`);
+      throw error;
+    }
+  }
+
+  // Save cache
+  await cache.save();
+
+  // Summary
+  console.log();
+  if (cacheHitCount > 0) {
+    console.log(`✅ Reused ${cacheHitCount} cached image(s)`);
+  }
+  if (uploadCount > 0) {
+    console.log(`✅ Uploaded ${uploadCount} new image(s)`);
+  }
+  console.log();
+
+  return imageMap;
 }
 
 export async function publishCommand(
@@ -66,6 +169,7 @@ export async function publishCommand(
     // Process images with validation (in dry-run mode)
     let imageMap: ImageMap = {};
     let hasImageErrors = false;
+    let gutenbergContent = '';
 
     if (images.length > 0 && options.dryRun) {
       // Load cache
@@ -145,14 +249,10 @@ export async function publishCommand(
       if (hasImageErrors) {
         console.log('⚠️  Image errors found - publish would fail\n');
       }
-    } else if (images.length > 0) {
-      // Non-dry-run mode - just show image count
-      console.log(`📸 Found ${images.length} image(s)\n`);
-      // TODO: Actual image upload would go here
-    }
 
-    // Transform to Gutenberg blocks
-    const gutenbergContent = transformToGutenberg(parsed.content, imageMap);
+      // Transform to Gutenberg blocks (for dry-run preview)
+      gutenbergContent = transformToGutenberg(parsed.content, imageMap);
+    }
 
     if (options.dryRun) {
       console.log('🔍 DRY RUN - No changes will be made to WordPress\n');
@@ -165,18 +265,82 @@ export async function publishCommand(
       return;
     }
 
-    // Real publish (not yet fully implemented)
+    // Real publish
     console.log('🚀 Publishing to WordPress...\n');
 
-    // TODO: Create WordPress client
-    // TODO: Upload images and get real URLs
-    // TODO: Transform with real image URLs
-    // TODO: Create/update post
-    // TODO: Handle errors
+    // Create WordPress client
+    const wpConfig = createWPConfig(config);
+    const client = new WordPressClient(wpConfig);
 
-    console.log('❌ Real publishing not yet implemented');
-    console.log('   Use --dry-run to preview the Gutenberg output');
-    console.log('\n💡 Coming soon: Full publish workflow with image upload');
+    // Validate connection
+    console.log('🔌 Validating connection...');
+    try {
+      await client.validateConnection();
+      console.log('✅ Connected to WordPress\n');
+    } catch (error) {
+      console.error('❌ Connection failed');
+      if (error instanceof Error) {
+        console.error(`   ${error.message}`);
+      }
+      console.error('\n💡 Tips:');
+      console.error('   • Check your WordPress URL in .md2wprc.json');
+      console.error('   • Verify your Application Password in .env');
+      console.error('   • Run `md2wp init` to reconfigure');
+      throw error;
+    }
+
+    // Upload images
+    if (images.length > 0) {
+      console.log(`📸 Processing ${images.length} image(s)...\n`);
+
+      const cache = new ImageCacheManager();
+      await cache.load();
+
+      imageMap = await uploadImages(images, absolutePath, client, cache);
+    }
+
+    // Transform content with real image URLs
+    const content = transformToGutenberg(parsed.content, imageMap);
+
+    // Prepare post data
+    const postData = {
+      title: parsed.frontmatter.title,
+      content,
+      status: finalStatus,
+      ...(parsed.frontmatter.slug && { slug: parsed.frontmatter.slug }),
+      ...(parsed.frontmatter.excerpt && { excerpt: parsed.frontmatter.excerpt }),
+      ...(parsed.frontmatter.date && { date: parsed.frontmatter.date }),
+      // TODO: Handle tags and categories (need to look up IDs)
+    };
+
+    // Create post
+    console.log('📝 Creating post...');
+    const post = await client.createPost(postData);
+    console.log(`✅ Post created: ${post.link}\n`);
+
+    // Write back frontmatter with post details
+    try {
+      await updateFrontmatter(absolutePath, {
+        wp_post_id: post.id,
+        wp_url: post.link,
+        wp_modified: post.modified,
+      });
+      console.log('✅ Updated frontmatter with post details\n');
+    } catch (error) {
+      console.warn('⚠️  Could not update frontmatter (post is published)');
+      if (error instanceof Error) {
+        console.warn(`   ${error.message}\n`);
+      }
+    }
+
+    // Success!
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('🎉 SUCCESS!');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    console.log(`📄 Title: ${post.title.rendered}`);
+    console.log(`🔗 URL: ${post.link}`);
+    console.log(`📝 Status: ${post.status}`);
+    console.log(`🆔 Post ID: ${post.id}\n`);
   } catch (error) {
     if (error instanceof Error) {
       console.error('❌ Error:', error.message);

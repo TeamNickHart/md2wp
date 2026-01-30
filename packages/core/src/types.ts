@@ -34,6 +34,10 @@ export interface Frontmatter {
   categories?: string[] | undefined;
   excerpt?: string | undefined;
   date?: string | undefined;
+  // WordPress-specific fields (added after publish)
+  wp_post_id?: number | undefined;
+  wp_url?: string | undefined;
+  wp_modified?: string | undefined;
 }
 
 // Parsed markdown types

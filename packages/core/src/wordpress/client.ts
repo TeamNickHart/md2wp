@@ -9,7 +9,7 @@ import type {
   WPPostResponse,
   BlogPlatformClient,
 } from '../types.js';
-import { validateConfig } from './auth.js';
+import { validateConfig, createAuthHeader } from './auth.js';
 import { uploadMedia as upload, verifyMedia as verify } from './media.js';
 import {
   createPost as create,
@@ -69,5 +69,36 @@ export class WordPressClient implements BlogPlatformClient {
    */
   getSiteUrl(): string {
     return this.config.siteUrl;
+  }
+
+  /**
+   * Validate connection to WordPress
+   * Calls /wp/v2/users/me to verify authentication works
+   */
+  async validateConnection(): Promise<boolean> {
+    const url = `${this.config.siteUrl}/wp-json/wp/v2/users/me`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: createAuthHeader(this.config),
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `Authentication failed: ${response.status} ${response.statusText} - ${errorText}`,
+        );
+      }
+
+      return true;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to connect to WordPress: ${error.message}`);
+      }
+      throw error;
+    }
   }
 }

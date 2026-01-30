@@ -24,6 +24,10 @@ export {
   formatBytes,
   type ImageValidation,
 } from './markdown/image-validator.js';
+export {
+  updateFrontmatter,
+  type FrontmatterUpdates,
+} from './markdown/frontmatter-writer.js';
 
 // Export config loader
 export { loadConfig, generateDefaultConfig, generateEnvTemplate, createWPConfig } from './config/loader.js';
