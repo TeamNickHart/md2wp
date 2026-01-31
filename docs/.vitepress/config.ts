@@ -69,7 +69,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/nickhart/md2wp' }
+      { icon: 'github', link: 'https://github.com/TeamNickHart/md2wp' }
     ],
 
     footer: {
@@ -82,7 +82,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/nickhart/md2wp/edit/main/apps/docs/:path',
+      pattern: 'https://github.com/TeamNickHart/md2wp/edit/main/docs/:path',
       text: 'Edit this page on GitHub'
     }
   }

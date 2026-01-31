@@ -14,7 +14,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/nickhart/md2wp
+      link: https://github.com/TeamNickHart/md2wp
 
 features:
   - icon: 📝

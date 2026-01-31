@@ -147,4 +147,4 @@ Ready to try md2wp?
 
 - [Installation Guide →](/guide/installation)
 - [Getting Started →](/guide/getting-started)
-- [View on GitHub →](https://github.com/nickhart/md2wp)
+- [View on GitHub →](https://github.com/TeamNickHart/md2wp)

@@ -396,10 +396,10 @@ Still having issues?
    - [CLI Commands](/reference/cli-commands)
 
 2. **Search GitHub Issues:**
-   - [md2wp Issues](https://github.com/nickhart/md2wp/issues)
+   - [md2wp Issues](https://github.com/TeamNickHart/md2wp/issues)
 
 3. **Create new issue:**
-   - [Report a bug](https://github.com/nickhart/md2wp/issues/new)
+   - [Report a bug](https://github.com/TeamNickHart/md2wp/issues/new)
    - Include:
      - md2wp version (`md2wp --version`)
      - Node.js version (`node --version`)
@@ -408,7 +408,7 @@ Still having issues?
      - Steps to reproduce
 
 4. **Community:**
-   - [GitHub Discussions](https://github.com/nickhart/md2wp/discussions)
+   - [GitHub Discussions](https://github.com/TeamNickHart/md2wp/discussions)
 
 ---
 

@@ -113,7 +113,7 @@ If you want to contribute or develop md2wp:
 ### Clone Repository
 
 ```bash
-git clone https://github.com/nickhart/md2wp.git
+git clone https://github.com/TeamNickHart/md2wp.git
 cd md2wp
 ```
 
