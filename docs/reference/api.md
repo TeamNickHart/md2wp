@@ -20,7 +20,7 @@ import { WordPressClient } from '@md2wp/core';
 const client = new WordPressClient({
   siteUrl: 'https://yoursite.com',
   username: 'admin',
-  password: 'xxxx xxxx xxxx xxxx'
+  password: 'xxxx xxxx xxxx xxxx',
 });
 ```
 
@@ -52,7 +52,7 @@ Create a new WordPress post.
 const post = await client.createPost({
   title: 'My Post',
   content: '<!-- wp:paragraph --><p>Content</p><!-- /wp:paragraph -->',
-  status: 'draft'
+  status: 'draft',
 });
 // Returns: Promise<WPPostResponse>
 ```
@@ -63,7 +63,7 @@ Update existing post.
 
 ```typescript
 const updated = await client.updatePost(123, {
-  title: 'Updated Title'
+  title: 'Updated Title',
 });
 // Returns: Promise<WPPostResponse>
 ```
@@ -103,8 +103,8 @@ import { transformToGutenberg } from '@md2wp/core';
 const gutenberg = transformToGutenberg(markdown, {
   './image.jpg': {
     id: 123,
-    url: 'https://site.com/image.jpg'
-  }
+    url: 'https://site.com/image.jpg',
+  },
 });
 // Returns: string
 ```
@@ -119,7 +119,7 @@ import { extractImages } from '@md2wp/core';
 const images = extractImages(markdown);
 // Returns: ImageRef[]
 
-images.forEach(img => {
+images.forEach((img) => {
   console.log(img.path, img.alt);
 });
 ```
@@ -173,7 +173,7 @@ const cached = cache.get('sha256-hash');
 cache.set('sha256-hash', {
   mediaId: 123,
   url: 'https://site.com/image.jpg',
-  uploadedAt: new Date().toISOString()
+  uploadedAt: new Date().toISOString(),
 });
 
 // Save cache
@@ -217,7 +217,7 @@ import { updateFrontmatter } from '@md2wp/core';
 await updateFrontmatter('./post.md', {
   wp_post_id: 123,
   wp_url: 'https://site.com/post/',
-  wp_modified: new Date().toISOString()
+  wp_modified: new Date().toISOString(),
 });
 ```
 
@@ -282,7 +282,7 @@ import {
   ImageCacheManager,
   createWPConfig,
   loadConfig,
-  updateFrontmatter
+  updateFrontmatter,
 } from '@md2wp/core';
 
 async function publishPost(filePath: string) {
@@ -307,7 +307,7 @@ async function publishPost(filePath: string) {
     const media = await client.uploadMedia(img.path, img.alt);
     imageMap[img.path] = {
       id: media.id,
-      url: media.source_url
+      url: media.source_url,
     };
   }
 
@@ -318,14 +318,14 @@ async function publishPost(filePath: string) {
   const post = await client.createPost({
     title: parsed.frontmatter.title,
     content: content,
-    status: parsed.frontmatter.status || 'draft'
+    status: parsed.frontmatter.status || 'draft',
   });
 
   // 8. Update frontmatter
   await updateFrontmatter(filePath, {
     wp_post_id: post.id,
     wp_url: post.link,
-    wp_modified: post.modified
+    wp_modified: post.modified,
   });
 
   return post;

@@ -57,7 +57,7 @@ export function parseMarkdown(content: string): Root {
   const processor = unified().use(remarkParse).use(remarkGfm);
 
   const ast = processor.parse(content);
-  return ast as Root;
+  return ast;
 }
 
 /**
@@ -68,7 +68,10 @@ export function validateFrontmatter(frontmatter: Frontmatter): void {
     throw new Error('Frontmatter title cannot be empty');
   }
 
-  if (frontmatter.status && !['draft', 'publish'].includes(frontmatter.status)) {
+  if (
+    frontmatter.status &&
+    !['draft', 'publish'].includes(frontmatter.status)
+  ) {
     throw new Error('Frontmatter status must be either "draft" or "publish"');
   }
 }

@@ -6,7 +6,7 @@ All post metadata is defined in YAML frontmatter at the top of your markdown fil
 
 ```yaml
 ---
-title: "My Blog Post"
+title: 'My Blog Post'
 status: draft
 tags:
   - tutorial
@@ -14,7 +14,6 @@ tags:
 categories:
   - Technology
 ---
-
 # Post content starts here...
 ```
 
@@ -26,7 +25,7 @@ Post title (required).
 
 ```yaml
 ---
-title: "My First Post"
+title: 'My First Post'
 ---
 ```
 
@@ -43,10 +42,10 @@ title: "My First Post"
 
 ```yaml
 ---
-title: "Complete Guide"
+title: 'Complete Guide'
 slug: complete-guide
 status: draft
-excerpt: "A comprehensive guide"
+excerpt: 'A comprehensive guide'
 date: 2024-01-15
 tags: [tutorial, guide]
 categories: [Documentation]

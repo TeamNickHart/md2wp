@@ -8,7 +8,11 @@ import type { Root, Image } from 'mdast';
 import type { ImageRef } from '../types.js';
 import { parseMarkdown } from './parser.js';
 import { validateImageFile, type ImageValidation } from './image-validator.js';
-import { hashFile, createCacheKey, type ImageCache } from '../cache/image-cache.js';
+import {
+  hashFile,
+  createCacheKey,
+  type ImageCache,
+} from '../cache/image-cache.js';
 
 /**
  * Extract all image references from markdown content

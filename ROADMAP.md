@@ -122,7 +122,7 @@
 
 ```yaml
 ---
-wp_post_id: 12345  # Automatically added after first publish
+wp_post_id: 12345 # Automatically added after first publish
 wp_modified: 2024-01-15T10:30:00Z
 ---
 ```
@@ -290,6 +290,7 @@ md2wp auth login
 ```
 
 **Implementation:**
+
 - Use `@napi-rs/keyring` for cross-platform support
 - Encrypted by OS (Keychain/Credential Manager/Secret Service)
 - Automatic credential loading
@@ -345,4 +346,4 @@ Have ideas for features? Open an issue or discussion on GitHub!
 - v1.1.0: Target Q3 2024
 - v2.0.0: Target Q4 2024
 
-*Schedule subject to change based on community feedback and contributions*
+_Schedule subject to change based on community feedback and contributions_

@@ -86,9 +86,11 @@ md2wp uses **WordPress Application Passwords** for secure authentication. These 
 ### Setup Authentication
 
 1. **Initialize md2wp** in your project:
+
    ```bash
    md2wp init
    ```
+
    This creates two files:
    - `.md2wprc.json` - WordPress site URL and username
    - `.env` - Your Application Password (keep this secret!)
@@ -102,12 +104,14 @@ md2wp uses **WordPress Application Passwords** for secure authentication. These 
    - **Copy the generated password** (it looks like: `xxxx xxxx xxxx xxxx`)
 
 3. **Add password to `.env`**:
+
    ```bash
    # .env
    MD2WP_PASSWORD=xxxx xxxx xxxx xxxx
    ```
 
 4. **Update `.md2wprc.json`** with your site details:
+
    ```json
    {
      "wordpress": {
@@ -145,7 +149,7 @@ Create a markdown file with frontmatter:
 
 ```markdown
 ---
-title: "My First Post"
+title: 'My First Post'
 status: draft
 tags:
   - tutorial
@@ -177,17 +181,17 @@ md2wp publish my-first-post.md
 
 ```yaml
 ---
-title: "Post Title"              # Required
-slug: custom-url-slug            # Optional
-status: draft | publish          # Optional (default: draft)
+title: 'Post Title' # Required
+slug: custom-url-slug # Optional
+status: draft | publish # Optional (default: draft)
 featured_image: ./images/hero.jpg # Optional
-tags:                            # Optional
+tags: # Optional
   - tag1
   - tag2
-categories:                      # Optional
+categories: # Optional
   - category1
-excerpt: "Short description"     # Optional
-date: 2024-01-15                 # Optional
+excerpt: 'Short description' # Optional
+date: 2024-01-15 # Optional
 ---
 ```
 
@@ -228,7 +232,9 @@ md2wp converts your markdown to proper Gutenberg blocks:
 ```markdown
 # Heading
 ```
+
 →
+
 ```html
 <!-- wp:heading {"level":1} -->
 <h1 class="wp-block-heading">Heading</h1>
@@ -238,18 +244,23 @@ md2wp converts your markdown to proper Gutenberg blocks:
 ```markdown
 ![Alt text](./image.png)
 ```
+
 →
+
 ```html
 <!-- wp:image {"id":123,"sizeSlug":"large"} -->
 <figure class="wp-block-image size-large">
-  <img src="https://site.com/wp-content/uploads/image.jpg"
-       alt="Alt text"
-       class="wp-image-123"/>
+  <img
+    src="https://site.com/wp-content/uploads/image.jpg"
+    alt="Alt text"
+    class="wp-image-123"
+  />
 </figure>
 <!-- /wp:image -->
 ```
 
 This means:
+
 - ✅ WordPress knows these are "real" images (not just HTML)
 - ✅ Automatic responsive srcsets
 - ✅ Native Gutenberg editing experience

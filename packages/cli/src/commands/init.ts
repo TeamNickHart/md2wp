@@ -32,7 +32,9 @@ export async function initCommand(): Promise<void> {
   }
 
   console.log('\n📝 Next steps:');
-  console.log('1. Edit .md2wprc.json with your WordPress site URL and username');
+  console.log(
+    '1. Edit .md2wprc.json with your WordPress site URL and username',
+  );
   console.log('2. Create an Application Password in WordPress:');
   console.log('   - Go to your WordPress admin → Users → Profile');
   console.log('   - Scroll to "Application Passwords"');
@@ -41,5 +43,7 @@ export async function initCommand(): Promise<void> {
   console.log('   - Copy the generated password');
   console.log('3. Edit .env and paste the password into MD2WP_PASSWORD');
   console.log('4. Run: md2wp publish your-post.md');
-  console.log('\n💡 Tip: Add .env to your .gitignore to keep your password safe!');
+  console.log(
+    '\n💡 Tip: Add .env to your .gitignore to keep your password safe!',
+  );
 }

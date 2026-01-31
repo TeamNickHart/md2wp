@@ -1,6 +1,7 @@
 # Configuration
 
 md2wp uses two configuration files:
+
 - `.md2wprc.json` - WordPress site settings
 - `.env` - Application Password (keep secret!)
 
@@ -40,10 +41,11 @@ Your WordPress site URL.
 ```
 
 ::: tip
+
 - ✅ Include `https://`
 - ✅ No trailing slash
 - ✅ Use root domain (not `/wp-admin`)
-:::
+  :::
 
 #### `wordpress.username` (required)
 
@@ -91,9 +93,10 @@ Default author ID for posts.
 
 ::: tip
 Find author ID in WordPress:
+
 - Users → All Users → hover over user → see ID in URL
 - Or use `wp user list` in WP-CLI
-:::
+  :::
 
 ### Image Settings
 
@@ -129,6 +132,7 @@ WordPress upload subdirectory.
 
 ::: tip Coming in v1.4.0
 Image optimization settings:
+
 ```json
 {
   "images": {
@@ -139,6 +143,7 @@ Image optimization settings:
   }
 }
 ```
+
 :::
 
 ## Environment Variables
@@ -157,10 +162,12 @@ MD2WP_USERNAME="admin"                 # Optional
 ### Loading .env Files
 
 md2wp automatically loads `.env` from:
+
 1. Current working directory
 2. Parent directories (searches up)
 
 **Example `.env`:**
+
 ```bash
 # WordPress Application Password
 MD2WP_PASSWORD="xxxx xxxx xxxx xxxx xxxx xxxx"
@@ -179,6 +186,7 @@ Settings are resolved in this order (highest priority first):
 4. **Defaults**
 
 **Example:**
+
 ```json
 // .md2wprc.json
 {
@@ -216,6 +224,7 @@ status: draft
 ```
 
 Specify which to use:
+
 ```bash
 # Coming in v1.1.0
 md2wp publish post.md --config .md2wprc.staging.json
@@ -230,6 +239,7 @@ md2wp publish post.md --config .md2wprc.staging.json
 ```
 
 Load explicitly:
+
 ```bash
 # Load staging env
 env $(cat .env.staging | xargs) md2wp publish post.md
@@ -332,6 +342,7 @@ md2wp init
 ### Invalid JSON
 
 Use a JSON validator or:
+
 ```bash
 # Check JSON syntax
 cat .md2wprc.json | jq .

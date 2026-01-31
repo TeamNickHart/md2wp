@@ -55,9 +55,7 @@ export async function validateImageFile(
       );
     }
   } catch (error) {
-    validation.errors.push(
-      `Failed to read file: ${(error as Error).message}`,
-    );
+    validation.errors.push(`Failed to read file: ${(error as Error).message}`);
   }
 
   return validation;

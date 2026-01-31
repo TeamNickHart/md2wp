@@ -30,7 +30,12 @@ export {
 } from './markdown/frontmatter-writer.js';
 
 // Export config loader
-export { loadConfig, generateDefaultConfig, generateEnvTemplate, createWPConfig } from './config/loader.js';
+export {
+  loadConfig,
+  generateDefaultConfig,
+  generateEnvTemplate,
+  createWPConfig,
+} from './config/loader.js';
 
 // Export image cache
 export {

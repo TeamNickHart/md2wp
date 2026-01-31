@@ -1,5 +1,5 @@
 ---
-title: "Testing md2wp Gutenberg Transformation"
+title: 'Testing md2wp Gutenberg Transformation'
 status: draft
 tags:
   - test
@@ -7,18 +7,18 @@ tags:
   - gutenberg
 categories:
   - development
-excerpt: "A test post to showcase markdown to Gutenberg block conversion"
+excerpt: 'A test post to showcase markdown to Gutenberg block conversion'
 ---
 
 # Welcome to md2wp!
 
-This is a **test post** to demonstrate how md2wp converts *markdown* to proper **Gutenberg blocks**.
+This is a **test post** to demonstrate how md2wp converts _markdown_ to proper **Gutenberg blocks**.
 
 ## What Gets Transformed?
 
 md2wp supports the following markdown features:
 
-- Paragraphs with **bold** and *italic* text
+- Paragraphs with **bold** and _italic_ text
 - Headings at all levels
 - Ordered and unordered lists
 - Links like [this one](https://example.com)
@@ -43,11 +43,13 @@ greet('WordPress');
 ### Lists
 
 Unordered list:
+
 - First item
 - Second item with **bold text**
 - Third item with a [link](https://wordpress.org)
 
 Ordered list:
+
 1. Step one
 2. Step two
 3. Step three

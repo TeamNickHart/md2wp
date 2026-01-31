@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
   const publishCommand = vscode.commands.registerCommand(
     'md2wp.publish',
     () => {
-      vscode.window.showInformationMessage(
+      void vscode.window.showInformationMessage(
         'md2wp: Publish command not yet implemented',
       );
     },

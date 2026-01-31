@@ -71,7 +71,7 @@ md2wp publish my-post.md
 
 ```markdown
 ---
-title: "My First WordPress Post"
+title: 'My First WordPress Post'
 status: draft
 tags:
   - tutorial
@@ -97,7 +97,7 @@ After publishing, your markdown file is updated with WordPress details:
 
 ```markdown
 ---
-title: "My First WordPress Post"
+title: 'My First WordPress Post'
 wp_post_id: 123
 wp_url: https://yoursite.com/my-first-post/
 wp_modified: 2024-01-15T10:30:00Z

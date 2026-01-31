@@ -15,6 +15,7 @@ md2wp init [options]
 ### Description
 
 Creates two configuration files in the current directory:
+
 - `.md2wprc.json` - WordPress site configuration
 - `.env` - Application Password storage (git-ignored)
 
@@ -37,6 +38,7 @@ md2wp init
 ### Output Files
 
 **.md2wprc.json:**
+
 ```json
 {
   "wordpress": {
@@ -50,6 +52,7 @@ md2wp init
 ```
 
 **.env:**
+
 ```bash
 MD2WP_PASSWORD="your-app-password-here"
 ```
@@ -105,6 +108,7 @@ md2wp publish post.md --dry-run
 ```
 
 Shows:
+
 - Parsed frontmatter
 - Image validation results
 - Generated Gutenberg blocks
@@ -113,21 +117,25 @@ Shows:
 ### Examples
 
 **Basic publish:**
+
 ```bash
 md2wp publish my-post.md
 ```
 
 **Publish as draft:**
+
 ```bash
 md2wp publish my-post.md --draft
 ```
 
 **Preview only:**
+
 ```bash
 md2wp publish my-post.md --dry-run
 ```
 
 **Multiple files (bash):**
+
 ```bash
 for file in posts/*.md; do
   md2wp publish "$file" --draft
@@ -137,6 +145,7 @@ done
 ### Output
 
 **Success:**
+
 ```
 🚀 Publishing to WordPress...
 
@@ -167,6 +176,7 @@ done
 ```
 
 **Errors:**
+
 ```
 ❌ Connection failed
    Authentication failed: 401 Unauthorized

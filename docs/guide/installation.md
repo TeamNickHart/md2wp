@@ -11,6 +11,7 @@
 Install md2wp as a global CLI tool:
 
 ::: code-group
+
 ```bash [npm]
 npm install -g @md2wp/cli
 ```
@@ -22,6 +23,7 @@ pnpm add -g @md2wp/cli
 ```bash [yarn]
 yarn global add @md2wp/cli
 ```
+
 :::
 
 Verify the installation:
@@ -42,6 +44,7 @@ md2wp --help
 If you want to use md2wp in a specific project:
 
 ::: code-group
+
 ```bash [npm]
 npm install --save-dev @md2wp/cli
 ```
@@ -53,6 +56,7 @@ pnpm add -D @md2wp/cli
 ```bash [yarn]
 yarn add -D @md2wp/cli
 ```
+
 :::
 
 Then use via npm scripts:
@@ -80,14 +84,14 @@ Example usage:
 import {
   WordPressClient,
   parseMarkdownFile,
-  transformToGutenberg
+  transformToGutenberg,
 } from '@md2wp/core';
 
 // Create WordPress client
 const client = new WordPressClient({
   siteUrl: 'https://yoursite.com',
   username: 'yourname',
-  password: 'your-app-password'
+  password: 'your-app-password',
 });
 
 // Parse markdown
@@ -100,7 +104,7 @@ const content = transformToGutenberg(parsed.content);
 const post = await client.createPost({
   title: parsed.frontmatter.title,
   content: content,
-  status: 'draft'
+  status: 'draft',
 });
 
 console.log('Published:', post.link);
@@ -154,6 +158,7 @@ pnpm unlink:cli
 ### Global Installation
 
 ::: code-group
+
 ```bash [npm]
 npm update -g @md2wp/cli
 ```
@@ -165,11 +170,13 @@ pnpm update -g @md2wp/cli
 ```bash [yarn]
 yarn global upgrade @md2wp/cli
 ```
+
 :::
 
 ### Project Dependency
 
 ::: code-group
+
 ```bash [npm]
 npm update @md2wp/cli
 ```
@@ -181,6 +188,7 @@ pnpm update @md2wp/cli
 ```bash [yarn]
 yarn upgrade @md2wp/cli
 ```
+
 :::
 
 ## Uninstalling
@@ -188,6 +196,7 @@ yarn upgrade @md2wp/cli
 ### Global Installation
 
 ::: code-group
+
 ```bash [npm]
 npm uninstall -g @md2wp/cli
 ```
@@ -199,11 +208,13 @@ pnpm remove -g @md2wp/cli
 ```bash [yarn]
 yarn global remove @md2wp/cli
 ```
+
 :::
 
 ### Project Dependency
 
 ::: code-group
+
 ```bash [npm]
 npm uninstall @md2wp/cli
 ```
@@ -215,6 +226,7 @@ pnpm remove @md2wp/cli
 ```bash [yarn]
 yarn remove @md2wp/cli
 ```
+
 :::
 
 ## Troubleshooting Installation

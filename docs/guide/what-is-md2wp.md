@@ -50,6 +50,7 @@ Unlike tools that convert markdown to plain HTML, md2wp creates proper **Gutenbe
 ```
 
 This means:
+
 - WordPress recognizes your content as native blocks
 - Full editing capabilities in Gutenberg editor
 - Automatic responsive images with srcsets
@@ -58,6 +59,7 @@ This means:
 ### Smart Image Caching
 
 Images are hashed (SHA-256) and cached locally:
+
 - Upload once, reuse forever
 - Prevents duplicate uploads
 - Verifies media still exists before reusing
@@ -69,12 +71,12 @@ All post metadata lives in YAML frontmatter:
 
 ```yaml
 ---
-title: "Required: Post Title"
+title: 'Required: Post Title'
 slug: optional-url-slug
 status: draft | publish
 tags: [tag1, tag2]
 categories: [category1]
-excerpt: "Post excerpt"
+excerpt: 'Post excerpt'
 date: 2024-01-15
 ---
 ```
@@ -90,18 +92,21 @@ wp_modified: 2024-01-15T10:30:00Z
 ## Use Cases
 
 ### Content Writers
+
 - Write posts in markdown
 - Preview locally with any markdown viewer
 - Publish to WordPress when ready
 - Version control your content
 
 ### Developers
+
 - Automate content publishing in CI/CD
 - Bulk publish documentation to WordPress
 - Integrate WordPress publishing into custom workflows
 - Use as a library in Node.js applications
 
 ### Teams
+
 - Collaborate on posts using Git
 - Review content via pull requests
 - Maintain content history
@@ -110,6 +115,7 @@ wp_modified: 2024-01-15T10:30:00Z
 ## What's Supported
 
 ### Markdown Features (v1.0)
+
 - ✅ Headings (H1-H6)
 - ✅ Paragraphs
 - ✅ Lists (ordered & unordered)
@@ -121,6 +127,7 @@ wp_modified: 2024-01-15T10:30:00Z
 - ✅ Horizontal rules
 
 ### Coming Soon
+
 - 🚧 Tables (v1.2.0)
 - 🚧 Task lists (v1.2.0)
 - 🚧 Footnotes (v1.2.0)
@@ -136,6 +143,7 @@ md2wp is a TypeScript monorepo with:
 - **@md2wp/vscode** - VS Code extension (planned)
 
 Built with:
+
 - **TypeScript** - Type-safe development
 - **unified/remark** - Markdown parsing and transformation
 - **gray-matter** - Frontmatter extraction

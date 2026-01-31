@@ -7,6 +7,7 @@ md2wp uses **WordPress Application Passwords** for secure, token-based authentic
 Application Passwords are special passwords for applications to access your WordPress site via the REST API. They were introduced in WordPress 5.6.
 
 **Benefits:**
+
 - 🔐 Separate from your main WordPress password
 - 🚫 Can be revoked individually without affecting other apps
 - 📝 Named for easy identification
@@ -23,6 +24,7 @@ Application Passwords are special passwords for applications to access your Word
 5. Click **"Add New Application Password"**
 
 You'll see a password like:
+
 ```
 xxxx xxxx xxxx xxxx xxxx xxxx
 ```
@@ -45,11 +47,13 @@ MD2WP_PASSWORD="xxxx xxxx xxxx xxxx xxxx xxxx"
 **Never commit `.env` to version control!**
 
 Add to your `.gitignore`:
+
 ```gitignore
 .env
 .env.local
 .env.*.local
 ```
+
 :::
 
 ### 3. Configure WordPress Site
@@ -95,6 +99,7 @@ MD2WP_PASSWORD="staging-password-here"
 ```
 
 Load with:
+
 ```bash
 # Production
 env $(cat .env.production) md2wp publish post.md
@@ -127,10 +132,12 @@ Create separate config files:
 
 ::: tip Coming in v1.1.0
 Native multi-site support with `--site` flag:
+
 ```bash
 md2wp publish post.md --site production
 md2wp publish post.md --site staging
 ```
+
 :::
 
 ## CI/CD Environments
@@ -243,6 +250,7 @@ Regular rotation is good security practice:
 ### "Authentication failed"
 
 **Check these:**
+
 - ✅ Password is correct in `.env`
 - ✅ Username matches WordPress user
 - ✅ WordPress site URL is correct (no trailing slash)
@@ -259,6 +267,7 @@ WordPress 5.6+ required. If you're on an older version:
 ### "Config not found"
 
 Run `md2wp init` to create config files:
+
 ```bash
 md2wp init
 ```
@@ -266,11 +275,13 @@ md2wp init
 ### Test Connection
 
 Use dry-run to test without publishing:
+
 ```bash
 md2wp publish post.md --dry-run
 ```
 
 For real connection test:
+
 ```bash
 md2wp publish post.md
 # Will validate connection before doing anything
@@ -280,6 +291,7 @@ md2wp publish post.md
 
 ::: tip Coming in v1.1.0
 Secure password storage in OS keychain:
+
 - macOS: Keychain
 - Windows: Credential Manager
 - Linux: Secret Service API

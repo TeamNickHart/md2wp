@@ -6,13 +6,7 @@
   ],
   "commit": false,
   "fixed": [],
-  "linked": [
-    [
-      "@md2wp/cli",
-      "@md2wp/core",
-      "@md2wp/vscode"
-    ]
-  ],
+  "linked": [["@md2wp/cli", "@md2wp/core", "@md2wp/vscode"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

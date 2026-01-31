@@ -13,6 +13,7 @@ This guide will help you publish your first post to WordPress using md2wp.
 Install md2wp globally:
 
 ::: code-group
+
 ```bash [npm]
 npm install -g @md2wp/cli
 ```
@@ -24,6 +25,7 @@ pnpm add -g @md2wp/cli
 ```bash [yarn]
 yarn global add @md2wp/cli
 ```
+
 :::
 
 Verify installation:
@@ -43,6 +45,7 @@ md2wp init
 This creates two files:
 
 ### `.md2wprc.json`
+
 ```json
 {
   "wordpress": {
@@ -56,6 +59,7 @@ This creates two files:
 ```
 
 ### `.env`
+
 ```bash
 # WordPress Application Password
 MD2WP_PASSWORD=your-app-password-here
@@ -63,9 +67,11 @@ MD2WP_PASSWORD=your-app-password-here
 
 ::: warning Important
 Add `.env` to your `.gitignore` to keep your password secret!
+
 ```gitignore
 .env
 ```
+
 :::
 
 ## Configure WordPress
@@ -77,11 +83,11 @@ Edit the configuration file with your WordPress details:
 ```json
 {
   "wordpress": {
-    "siteUrl": "https://yourblog.com",  // Your WordPress site URL
-    "username": "yourname"               // Your WordPress username
+    "siteUrl": "https://yourblog.com", // Your WordPress site URL
+    "username": "yourname" // Your WordPress username
   },
   "posts": {
-    "defaultStatus": "draft"             // Default post status
+    "defaultStatus": "draft" // Default post status
   }
 }
 ```
@@ -113,14 +119,14 @@ Create a markdown file `my-first-post.md`:
 
 ```markdown
 ---
-title: "My First md2wp Post"
+title: 'My First md2wp Post'
 status: draft
 tags:
   - tutorial
   - markdown
 categories:
   - Technology
-excerpt: "Learning to publish markdown to WordPress"
+excerpt: 'Learning to publish markdown to WordPress'
 ---
 
 # Hello WordPress!
@@ -151,6 +157,7 @@ md2wp publish my-first-post.md --dry-run
 ```
 
 This shows:
+
 - ✅ Parsed frontmatter
 - ✅ Image validation results
 - ✅ Generated Gutenberg blocks
@@ -163,6 +170,7 @@ md2wp publish my-first-post.md
 ```
 
 You'll see:
+
 ```
 🚀 Publishing to WordPress...
 
@@ -220,16 +228,19 @@ These fields track the WordPress post for future updates.
 ## Common Issues
 
 ### "Authentication failed"
+
 - ✅ Check WordPress URL in `.md2wprc.json`
 - ✅ Verify username is correct
 - ✅ Regenerate Application Password
 - ✅ Make sure password is in `.env` file
 
 ### "Image not found"
+
 - ✅ Check image path is relative to markdown file
 - ✅ Make sure image file exists
 - ✅ Use `--dry-run` to see validation errors
 
 ### "Config not found"
+
 - ✅ Run `md2wp init` in your project directory
 - ✅ Make sure `.md2wprc.json` exists

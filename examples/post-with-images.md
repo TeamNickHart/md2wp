@@ -1,8 +1,8 @@
 ---
-title: "Example Post with Images"
+title: 'Example Post with Images'
 slug: example-images
 status: draft
-excerpt: "Demonstrating image handling in md2wp"
+excerpt: 'Demonstrating image handling in md2wp'
 tags:
   - examples
   - images
@@ -19,6 +19,7 @@ This example shows how md2wp handles local images.
 ![Sample screenshot](./images/screenshot.png)
 
 Images are automatically:
+
 - Uploaded to WordPress media library
 - Cached to avoid duplicate uploads
 - Validated for size and existence

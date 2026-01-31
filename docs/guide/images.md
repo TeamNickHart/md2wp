@@ -11,6 +11,7 @@ Use standard markdown image syntax:
 ```
 
 md2wp will:
+
 1. Find the image file
 2. Upload to WordPress Media Library
 3. Replace path with WordPress URL
@@ -29,6 +30,7 @@ Relative to the markdown file:
 ```
 
 **Directory structure:**
+
 ```
 my-blog/
 ├── post.md
@@ -64,6 +66,7 @@ md2wp doesn't upload these - WordPress loads them directly.
 ### 1. Validation
 
 Before uploading, md2wp checks:
+
 - ✅ File exists
 - ✅ File size (warns if >2MB, errors if >10MB)
 - ✅ Readable by the process
@@ -97,9 +100,11 @@ Gutenberg image block is generated with WordPress URL:
 ```html
 <!-- wp:image {"id":123,"sizeSlug":"large"} -->
 <figure class="wp-block-image size-large">
-  <img src="https://site.com/wp-content/uploads/image.jpg"
-       alt="Alt text"
-       class="wp-image-123"/>
+  <img
+    src="https://site.com/wp-content/uploads/image.jpg"
+    alt="Alt text"
+    class="wp-image-123"
+  />
 </figure>
 <!-- /wp:image -->
 ```
@@ -111,7 +116,9 @@ Alt text is preserved from markdown:
 ```markdown
 ![A beautiful sunset over the ocean](./sunset.jpg)
 ```
+
 ↓
+
 ```html
 <img src="..." alt="A beautiful sunset over the ocean" />
 ```
@@ -131,6 +138,7 @@ md2wp publish post.md --dry-run
 ```
 
 Output:
+
 ```
 📸 Validating 3 image(s):
 
@@ -165,11 +173,12 @@ Output:
 
 ::: tip Coming in v1.2.0
 Full image validation:
+
 - Format checking (JPEG, PNG, WebP, GIF, SVG)
 - Dimension validation
 - EXIF data extraction
 - Optimization suggestions
-:::
+  :::
 
 ## Publish Progress
 
@@ -232,10 +241,12 @@ Commit `.md2wp/` to Git to share cache with your team.
 ### Cache Invalidation
 
 Cache is automatically invalidated when:
+
 - Image file content changes (new hash)
 - Media deleted from WordPress (verification fails)
 
 Manual cache clear:
+
 ```bash
 rm -rf .md2wp/cache.json
 ```
@@ -245,6 +256,7 @@ rm -rf .md2wp/cache.json
 ## Supported Formats
 
 Current support (v1.0):
+
 - ✅ JPEG (.jpg, .jpeg)
 - ✅ PNG (.png)
 - ✅ GIF (.gif)
@@ -267,19 +279,21 @@ Automatic optimization before upload:
     "optimize": true,
     "maxWidth": 2000,
     "quality": 85,
-    "format": "webp"  // Convert to WebP
+    "format": "webp" // Convert to WebP
   }
 }
 ```
 
 Features:
+
 - Resize large images
 - Convert to WebP
 - Compress JPEG/PNG
 - Strip EXIF data
-:::
+  :::
 
 Current workaround - optimize before publishing:
+
 ```bash
 # Using ImageMagick
 magick hero.jpg -resize 2000x2000\> -quality 85 hero-opt.jpg
@@ -298,6 +312,7 @@ Here's a small icon ![icon](./icon.png) in the middle of text.
 ```
 
 md2wp generates:
+
 ```html
 <p>Here's a small icon <img src="..." alt="icon" /> in the middle of text.</p>
 ```
@@ -309,7 +324,7 @@ Set featured image in frontmatter:
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 featured_image: ./images/hero.jpg
 ---
 ```
@@ -345,6 +360,7 @@ Converts to `<!-- wp:gallery -->` block.
 ```
 
 **Fix:**
+
 - Check path is relative to markdown file
 - Verify file exists
 - Check file name (case-sensitive on Linux/macOS)
@@ -356,6 +372,7 @@ Converts to `<!-- wp:gallery -->` block.
 ```
 
 **Fix:**
+
 ```bash
 # Optimize with ImageMagick
 magick input.jpg -resize 2000x2000\> -quality 80 output.jpg
@@ -373,11 +390,13 @@ magick input.jpg -resize 2000x2000\> -quality 80 output.jpg
 ```
 
 **Common causes:**
+
 - WordPress upload limit too low
 - File type not allowed
 - Permissions issue on WordPress server
 
 **Fix:**
+
 - Check WordPress max upload size
 - Check allowed file types in WordPress
 - Contact hosting provider
@@ -417,7 +436,7 @@ md2wp publish post.md
 
 ```markdown
 ---
-title: "Travel Photography Tips"
+title: 'Travel Photography Tips'
 ---
 
 # Travel Photography Tips
@@ -444,7 +463,7 @@ Here's a before and after:
 
 ```markdown
 ---
-title: "How to Use WordPress"
+title: 'How to Use WordPress'
 ---
 
 # Getting Started

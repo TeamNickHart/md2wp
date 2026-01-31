@@ -16,9 +16,7 @@ loadDotenvFile();
 /**
  * Load configuration from file and environment
  */
-export async function loadConfig(
-  configPath?: string,
-): Promise<Md2wpConfig> {
+export async function loadConfig(configPath?: string): Promise<Md2wpConfig> {
   let config: Md2wpConfig;
 
   if (configPath) {

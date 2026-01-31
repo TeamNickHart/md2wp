@@ -10,7 +10,7 @@ Create `my-post.md` with frontmatter:
 
 ```markdown
 ---
-title: "My First Post"
+title: 'My First Post'
 status: draft
 ---
 
@@ -26,6 +26,7 @@ md2wp publish my-post.md
 ```
 
 Output:
+
 ```
 🚀 Publishing to WordPress...
 
@@ -52,6 +53,7 @@ Output:
 ### Draft Mode (Default)
 
 Publish as draft:
+
 ```bash
 md2wp publish post.md
 # or explicitly
@@ -61,6 +63,7 @@ md2wp publish post.md --draft
 ### Publish Immediately
 
 Bypass draft status:
+
 ```bash
 md2wp publish post.md --publish
 ```
@@ -72,11 +75,13 @@ Using `--publish` will make your post public immediately, even if frontmatter sa
 ### Dry Run Mode
 
 Preview without publishing:
+
 ```bash
 md2wp publish post.md --dry-run
 ```
 
 Shows:
+
 - Parsed frontmatter
 - Image validation
 - Generated Gutenberg blocks
@@ -89,6 +94,7 @@ Shows:
 ### 1. Validation
 
 md2wp validates:
+
 - ✅ Configuration exists
 - ✅ WordPress connection works
 - ✅ Frontmatter has required fields
@@ -97,6 +103,7 @@ md2wp validates:
 ### 2. Image Upload
 
 For each local image:
+
 1. Check cache (SHA-256 hash)
 2. If cached: verify still exists in WordPress
 3. If not cached: upload to WordPress Media Library
@@ -111,7 +118,9 @@ Markdown is converted to Gutenberg blocks:
 ```markdown
 ## Heading
 ```
+
 ↓
+
 ```html
 <!-- wp:heading {"level":2} -->
 <h2 class="wp-block-heading">Heading</h2>
@@ -123,6 +132,7 @@ Markdown is converted to Gutenberg blocks:
 ### 4. Post Creation
 
 Post is created via WordPress REST API with:
+
 - Title from frontmatter
 - Gutenberg block content
 - Status (draft/publish)
@@ -137,7 +147,7 @@ Your markdown file is updated with WordPress post details:
 
 ```markdown
 ---
-title: "My First Post"
+title: 'My First Post'
 status: draft
 wp_post_id: 123
 wp_url: https://yoursite.com/my-first-post/
@@ -161,6 +171,7 @@ status: publish  # Public, visible to everyone
 ```
 
 **Priority:**
+
 1. `--draft` or `--publish` flag (highest)
 2. Frontmatter `status` field
 3. `.md2wprc.json` `defaultStatus`
@@ -174,9 +185,10 @@ WordPress generates slug from title:
 
 ```yaml
 ---
-title: "My First WordPress Post"
+title: 'My First WordPress Post'
 ---
 ```
+
 → URL: `https://yoursite.com/my-first-wordpress-post/`
 
 ### Custom Slugs
@@ -185,10 +197,11 @@ Specify your own slug:
 
 ```yaml
 ---
-title: "My First WordPress Post"
+title: 'My First WordPress Post'
 slug: first-post
 ---
 ```
+
 → URL: `https://yoursite.com/first-post/`
 
 ## Tags and Categories
@@ -197,7 +210,7 @@ slug: first-post
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 tags:
   - tutorial
   - markdown
@@ -215,7 +228,7 @@ Tags and categories are not yet implemented. They're parsed but not sent to Word
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 categories:
   - Technology
   - Tutorials
@@ -228,8 +241,8 @@ Add a custom excerpt:
 
 ```yaml
 ---
-title: "Post Title"
-excerpt: "A brief summary of this post that appears in post listings."
+title: 'Post Title'
+excerpt: 'A brief summary of this post that appears in post listings.'
 ---
 ```
 
@@ -241,12 +254,13 @@ If omitted, WordPress auto-generates from content.
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 date: 2024-01-15
 ---
 ```
 
 Supports formats:
+
 - `2024-01-15`
 - `2024-01-15T10:30:00`
 - `2024-01-15T10:30:00Z`
@@ -263,13 +277,16 @@ If no `date` specified, WordPress uses current date/time.
 
 ::: tip Coming in v2.2.0
 Publish multiple posts:
+
 ```bash
 md2wp publish posts/*.md
 md2wp publish blog/**/*.md
 ```
+
 :::
 
 Current workaround with bash:
+
 ```bash
 for file in posts/*.md; do
   md2wp publish "$file"
@@ -286,6 +303,7 @@ done
 ```
 
 **Fix:**
+
 - Check WordPress URL in `.md2wprc.json`
 - Verify Application Password in `.env`
 - Make sure WordPress is accessible
@@ -301,6 +319,7 @@ Cannot publish: 1 image(s) not found
 ```
 
 **Fix:**
+
 - Verify image path in markdown
 - Check image file exists
 - Use relative paths from markdown file
@@ -312,9 +331,10 @@ Cannot publish: 1 image(s) not found
 ```
 
 **Fix:**
+
 ```yaml
 ---
-title: "Your Post Title"  # Required!
+title: 'Your Post Title' # Required!
 ---
 ```
 
@@ -322,6 +342,7 @@ title: "Your Post Title"  # Required!
 
 ::: tip Coming in v1.3.0
 Update existing posts:
+
 ```bash
 # First publish creates wp_post_id
 md2wp publish post.md
@@ -330,6 +351,7 @@ md2wp publish post.md
 # md2wp detects wp_post_id and updates instead of creating
 md2wp publish post.md  # Updates existing post
 ```
+
 :::
 
 Currently: Each publish creates a **new post**. To update, manually edit in WordPress.
@@ -358,10 +380,10 @@ Currently: Each publish creates a **new post**. To update, manually edit in Word
 
 ```markdown
 ---
-title: "How to Use md2wp"
+title: 'How to Use md2wp'
 slug: how-to-use-md2wp
 status: draft
-excerpt: "Learn how to publish markdown to WordPress using md2wp"
+excerpt: 'Learn how to publish markdown to WordPress using md2wp'
 tags: [tutorial, markdown, wordpress]
 categories: [Tutorials]
 ---
@@ -375,7 +397,7 @@ md2wp makes it easy to publish markdown to WordPress...
 
 ```markdown
 ---
-title: "Building a Static Site"
+title: 'Building a Static Site'
 status: draft
 ---
 
@@ -394,7 +416,7 @@ Follow these steps:
 
 ```markdown
 ---
-title: "New Year Post"
+title: 'New Year Post'
 status: publish
 date: 2025-01-01T00:00:00Z
 ---

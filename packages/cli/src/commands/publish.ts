@@ -36,7 +36,11 @@ async function uploadImages(
   const imageMap: ImageMap = {};
 
   // First, validate all images exist (fail fast)
-  const processed = await processImagesForDryRun(images, markdownFilePath, cache);
+  const processed = await processImagesForDryRun(
+    images,
+    markdownFilePath,
+    cache,
+  );
 
   const missingImages = processed.filter((img) => !img.validation.exists);
   if (missingImages.length > 0) {
@@ -200,7 +204,7 @@ export async function publishCommand(
           }
 
           if (img.cacheHit && img.cachedUrl) {
-            console.log(`      → Cache: HIT (would reuse)`);
+            console.log('      → Cache: HIT (would reuse)');
             console.log(`      → WordPress ID: ${img.cachedMediaId}`);
             console.log(`      → URL: ${img.cachedUrl}`);
 
@@ -210,7 +214,7 @@ export async function publishCommand(
               url: img.cachedUrl,
             };
           } else {
-            console.log(`      → Cache: MISS (would upload)`);
+            console.log('      → Cache: MISS (would upload)');
             toUpload.push(img.path);
 
             // Use placeholder URL
@@ -308,7 +312,9 @@ export async function publishCommand(
       content,
       status: finalStatus,
       ...(parsed.frontmatter.slug && { slug: parsed.frontmatter.slug }),
-      ...(parsed.frontmatter.excerpt && { excerpt: parsed.frontmatter.excerpt }),
+      ...(parsed.frontmatter.excerpt && {
+        excerpt: parsed.frontmatter.excerpt,
+      }),
       ...(parsed.frontmatter.date && { date: parsed.frontmatter.date }),
       // TODO: Handle tags and categories (need to look up IDs)
     };

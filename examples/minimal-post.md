@@ -1,5 +1,5 @@
 ---
-title: "Minimal Example Post"
+title: 'Minimal Example Post'
 ---
 
 # Hello WordPress!
@@ -7,6 +7,7 @@ title: "Minimal Example Post"
 This is the absolute minimum required for a post. Only the `title` field is required in frontmatter.
 
 Everything else uses defaults:
+
 - Status: `draft` (from config or default)
 - Slug: Auto-generated from title
 - No tags or categories

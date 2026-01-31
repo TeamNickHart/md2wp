@@ -12,7 +12,7 @@ Post title.
 
 ```yaml
 ---
-title: "My Blog Post"
+title: 'My Blog Post'
 ---
 ```
 
@@ -31,7 +31,7 @@ URL-friendly post slug.
 
 ```yaml
 ---
-title: "My First WordPress Post"
+title: 'My First WordPress Post'
 slug: first-post
 ---
 ```
@@ -39,6 +39,7 @@ slug: first-post
 **Result:** `https://yoursite.com/first-post/`
 
 **Rules:**
+
 - Lowercase only
 - Hyphens for spaces
 - No special characters
@@ -55,19 +56,20 @@ Post publication status.
 
 ```yaml
 ---
-title: "My Post"
-status: draft    # Private, only visible to editors
+title: 'My Post'
+status: draft # Private, only visible to editors
 ---
 ```
 
 ```yaml
 ---
-title: "My Post"
-status: publish  # Public, visible to everyone
+title: 'My Post'
+status: publish # Public, visible to everyone
 ---
 ```
 
 **Priority:**
+
 1. `--draft` or `--publish` CLI flag
 2. Frontmatter `status`
 3. Config `posts.defaultStatus`
@@ -83,12 +85,13 @@ Post excerpt (summary).
 
 ```yaml
 ---
-title: "My Post"
-excerpt: "A brief summary of this post that appears in listings."
+title: 'My Post'
+excerpt: 'A brief summary of this post that appears in listings.'
 ---
 ```
 
 **WordPress:** Used in:
+
 - Post listings
 - RSS feeds
 - SEO meta descriptions
@@ -105,12 +108,13 @@ Post publication date.
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 date: 2024-01-15
 ---
 ```
 
 **Formats supported:**
+
 - `2024-01-15` (date only)
 - `2024-01-15T10:30:00` (with time)
 - `2024-01-15T10:30:00Z` (UTC)
@@ -120,12 +124,14 @@ date: 2024-01-15
 
 ::: tip Scheduled Posts
 Combine with `status: publish` for scheduling (coming in v1.3.0):
+
 ```yaml
 ---
 status: publish
 date: 2025-01-01T00:00:00Z
 ---
 ```
+
 :::
 
 ---
@@ -138,7 +144,7 @@ Post tags.
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 tags:
   - tutorial
   - markdown
@@ -147,6 +153,7 @@ tags:
 ```
 
 **Single-line format:**
+
 ```yaml
 ---
 tags: [tutorial, markdown, wordpress]
@@ -168,7 +175,7 @@ Post categories.
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 categories:
   - Technology
   - Tutorials
@@ -190,7 +197,7 @@ Featured image path.
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 featured_image: ./images/hero.jpg
 ---
 ```
@@ -216,8 +223,8 @@ WordPress post ID.
 
 ```yaml
 ---
-title: "My Post"
-wp_post_id: 123  # Added automatically
+title: 'My Post'
+wp_post_id: 123 # Added automatically
 ---
 ```
 
@@ -238,7 +245,7 @@ Published post URL.
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 wp_url: https://yoursite.com/my-post/
 ---
 ```
@@ -256,7 +263,7 @@ Last modified date in WordPress.
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 wp_modified: 2024-01-15T10:30:00Z
 ---
 ```
@@ -270,7 +277,7 @@ wp_modified: 2024-01-15T10:30:00Z
 ```yaml
 ---
 # Required
-title: "Complete Guide to md2wp"
+title: 'Complete Guide to md2wp'
 
 # Publication
 slug: complete-guide-md2wp
@@ -278,7 +285,7 @@ status: draft
 date: 2024-01-15T10:00:00Z
 
 # Content
-excerpt: "Everything you need to know about publishing markdown to WordPress"
+excerpt: 'Everything you need to know about publishing markdown to WordPress'
 tags:
   - tutorial
   - markdown
@@ -296,7 +303,6 @@ wp_post_id: 123
 wp_url: https://yoursite.com/complete-guide-md2wp/
 wp_modified: 2024-01-15T10:30:00Z
 ---
-
 # Your content here...
 ```
 
@@ -312,6 +318,7 @@ slug: my-post
 ```
 
 **Error:**
+
 ```
 ❌ Error: Frontmatter must include a "title" field
 ```
@@ -320,8 +327,8 @@ slug: my-post
 
 ```yaml
 ---
-title: "My Post"
-status: published  # ❌ Invalid
+title: 'My Post'
+status: published # ❌ Invalid
 ---
 ```
 
@@ -331,12 +338,13 @@ status: published  # ❌ Invalid
 
 ```yaml
 ---
-title: "My Post"
-date: 01/15/2024  # ❌ Wrong format
+title: 'My Post'
+date: 01/15/2024 # ❌ Wrong format
 ---
 ```
 
 **Correct:**
+
 ```yaml
 date: 2024-01-15
 ```
@@ -346,16 +354,18 @@ date: 2024-01-15
 md2wp automatically converts types when needed:
 
 **Numbers to strings:**
+
 ```yaml
 ---
-title: 123  # Converted to "123"
+title: 123 # Converted to "123"
 ---
 ```
 
 **Arrays from single values:**
+
 ```yaml
 ---
-tags: tutorial  # Converted to ["tutorial"]
+tags: tutorial # Converted to ["tutorial"]
 ---
 ```
 
@@ -364,6 +374,7 @@ tags: tutorial  # Converted to ["tutorial"]
 ### Multi-line Strings
 
 **Literal block (`|`):**
+
 ```yaml
 ---
 excerpt: |
@@ -374,6 +385,7 @@ excerpt: |
 ```
 
 **Folded block (`>`):**
+
 ```yaml
 ---
 excerpt: >
@@ -386,6 +398,7 @@ excerpt: >
 ### Escaping Special Characters
 
 **Quotes in strings:**
+
 ```yaml
 ---
 title: 'Post with "quotes" in title'
@@ -395,9 +408,10 @@ title: "Post with 'quotes' in title"
 ```
 
 **Colons in strings:**
+
 ```yaml
 ---
-title: "Title: With Colon"  # Must quote
+title: 'Title: With Colon' # Must quote
 ---
 ```
 
@@ -407,9 +421,9 @@ Add comments in frontmatter:
 
 ```yaml
 ---
-title: "My Post"
+title: 'My Post'
 # This is a comment
-status: draft  # Inline comment
+status: draft # Inline comment
 # tags: [wip]  # Commented out
 ---
 ```
@@ -443,11 +457,13 @@ md2wp validate post.md
 ```
 
 Or use dry-run:
+
 ```bash
 md2wp publish post.md --dry-run
 ```
 
 Shows parsed frontmatter:
+
 ```
 ✅ Parsed frontmatter:
 {

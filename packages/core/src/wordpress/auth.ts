@@ -46,7 +46,10 @@ export function validateConfig(config: WPConfig): void {
   }
 
   // Ensure site URL has protocol
-  if (!config.siteUrl.startsWith('http://') && !config.siteUrl.startsWith('https://')) {
+  if (
+    !config.siteUrl.startsWith('http://') &&
+    !config.siteUrl.startsWith('https://')
+  ) {
     config.siteUrl = `https://${config.siteUrl}`;
   }
 }
@@ -55,7 +58,9 @@ export function validateConfig(config: WPConfig): void {
  * Build WordPress REST API endpoint URL
  */
 export function buildApiUrl(siteUrl: string, path: string): string {
-  const normalizedSiteUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+  const normalizedSiteUrl = siteUrl.endsWith('/')
+    ? siteUrl.slice(0, -1)
+    : siteUrl;
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   return `${normalizedSiteUrl}/wp-json/wp/v2${normalizedPath}`;
 }

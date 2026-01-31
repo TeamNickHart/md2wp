@@ -7,12 +7,14 @@ Common issues and solutions when using md2wp.
 ### "Authentication failed: 401 Unauthorized"
 
 **Symptoms:**
+
 ```
 ❌ Connection failed
    Authentication failed: 401 Unauthorized
 ```
 
 **Causes:**
+
 - Wrong Application Password
 - Wrong username
 - Application Password revoked
@@ -21,17 +23,19 @@ Common issues and solutions when using md2wp.
 **Solutions:**
 
 1. **Check Application Password:**
+
    ```bash
    cat .env
    # Should show: MD2WP_PASSWORD="xxxx xxxx xxxx xxxx"
    ```
 
 2. **Verify WordPress URL:**
+
    ```json
    // .md2wprc.json
    {
      "wordpress": {
-       "siteUrl": "https://yoursite.com"  // No trailing slash!
+       "siteUrl": "https://yoursite.com" // No trailing slash!
      }
    }
    ```
@@ -53,11 +57,13 @@ Common issues and solutions when using md2wp.
 ### "Config not found"
 
 **Symptoms:**
+
 ```
 ❌ Error: Config not found
 ```
 
 **Solution:**
+
 ```bash
 # Initialize config files
 md2wp init
@@ -70,6 +76,7 @@ md2wp init
 ### "Image not found"
 
 **Symptoms:**
+
 ```
 ❌ ./images/photo.jpg
    File not found
@@ -78,16 +85,20 @@ md2wp init
 **Solutions:**
 
 1. **Check file exists:**
+
    ```bash
    ls -la ./images/photo.jpg
    ```
 
 2. **Check path is relative:**
+
    ```markdown
    <!-- ✅ Good -->
+
    ![Photo](./images/photo.jpg)
 
    <!-- ❌ Bad -->
+
    ![Photo](/Users/you/images/photo.jpg)
    ```
 
@@ -102,6 +113,7 @@ md2wp init
 ### "Image too large"
 
 **Symptoms:**
+
 ```
 ⚠️  Large file size: 8.5 MB (recommend <2 MB)
 ```
@@ -109,6 +121,7 @@ md2wp init
 **Solutions:**
 
 1. **Optimize with ImageMagick:**
+
    ```bash
    magick input.jpg -resize 2000x2000\> -quality 80 output.jpg
    ```
@@ -126,12 +139,14 @@ md2wp init
 ### "Failed to upload media"
 
 **Symptoms:**
+
 ```
 ❌ Failed to upload: ./image.jpg
    Failed to upload media: 500 Internal Server Error
 ```
 
 **Causes:**
+
 - WordPress upload directory permissions
 - PHP upload limit too low
 - File type not allowed
@@ -144,6 +159,7 @@ md2wp init
    - PHP `memory_limit`
 
 2. **Check file permissions:**
+
    ```bash
    # WordPress uploads directory should be writable
    ls -la wp-content/uploads/
@@ -160,6 +176,7 @@ md2wp init
 ### "Failed to connect to WordPress"
 
 **Symptoms:**
+
 ```
 ❌ Failed to connect to WordPress: Network error
 ```
@@ -167,12 +184,14 @@ md2wp init
 **Solutions:**
 
 1. **Check WordPress URL:**
+
    ```bash
    curl https://yoursite.com/wp-json/
    # Should return JSON
    ```
 
 2. **Check REST API enabled:**
+
    ```bash
    curl https://yoursite.com/wp-json/wp/v2/
    ```
@@ -195,6 +214,7 @@ md2wp init
 ### "Command not found: md2wp"
 
 **Symptoms:**
+
 ```bash
 md2wp: command not found
 ```
@@ -202,17 +222,20 @@ md2wp: command not found
 **Solutions:**
 
 1. **Check installation:**
+
    ```bash
    npm list -g @md2wp/cli
    ```
 
 2. **Check PATH:**
+
    ```bash
    echo $PATH
    npm config get prefix
    ```
 
 3. **Reinstall:**
+
    ```bash
    npm install -g @md2wp/cli
    ```
@@ -227,6 +250,7 @@ md2wp: command not found
 ### "Permission denied (EACCES)"
 
 **Symptoms:**
+
 ```
 Error: EACCES: permission denied
 ```
@@ -234,6 +258,7 @@ Error: EACCES: permission denied
 **Solutions:**
 
 1. **Fix npm permissions (recommended):**
+
    ```bash
    # Use nvm
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -258,6 +283,7 @@ Error: EACCES: permission denied
 **For contributors:**
 
 **Symptoms:**
+
 ```
 Error: Cannot find module '@md2wp/core'
 ```
@@ -265,11 +291,13 @@ Error: Cannot find module '@md2wp/core'
 **Solutions:**
 
 1. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
 
 2. **Build packages:**
+
    ```bash
    pnpm build
    ```
@@ -286,14 +314,16 @@ Error: Cannot find module '@md2wp/core'
 ### "Frontmatter must include a 'title' field"
 
 **Symptoms:**
+
 ```
 ❌ Error: Frontmatter must include a "title" field
 ```
 
 **Solution:**
+
 ```yaml
 ---
-title: "Your Post Title"  # Required!
+title: 'Your Post Title' # Required!
 ---
 ```
 
@@ -302,14 +332,16 @@ title: "Your Post Title"  # Required!
 ### "Invalid frontmatter status"
 
 **Symptoms:**
+
 ```
 ❌ Error: Frontmatter status must be either "draft" or "publish"
 ```
 
 **Solution:**
+
 ```yaml
 ---
-status: draft    # ✅ Correct
+status: draft # ✅ Correct
 # status: published  # ❌ Wrong
 ---
 ```
@@ -321,17 +353,20 @@ status: draft    # ✅ Correct
 ### Slow uploads
 
 **Symptoms:**
+
 - Image uploads taking too long
 - Connection timeouts
 
 **Solutions:**
 
 1. **Optimize images before uploading:**
+
    ```bash
    magick *.jpg -resize 2000x2000\> -quality 80 optimized/
    ```
 
 2. **Check internet connection:**
+
    ```bash
    speedtest-cli
    ```
@@ -348,17 +383,20 @@ status: draft    # ✅ Correct
 ### Cache not working
 
 **Symptoms:**
+
 - Images re-upload every time
 - No cache hits
 
 **Solutions:**
 
 1. **Check cache exists:**
+
    ```bash
    ls -la .md2wp/cache.json
    ```
 
 2. **Check cache permissions:**
+
    ```bash
    chmod 644 .md2wp/cache.json
    ```
@@ -374,12 +412,14 @@ status: draft    # ✅ Correct
 ## Debug Mode
 
 **Coming in v1.1.0:**
+
 ```bash
 md2wp publish post.md --verbose
 md2wp publish post.md --debug
 ```
 
 **Current workaround:**
+
 ```bash
 NODE_DEBUG=* md2wp publish post.md
 ```

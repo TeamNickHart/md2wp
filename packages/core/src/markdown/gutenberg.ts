@@ -10,10 +10,6 @@ import type {
   ListItem,
   Image,
   Link,
-  Text,
-  Strong,
-  Emphasis,
-  InlineCode,
   PhrasingContent,
   Code,
   Blockquote,
@@ -102,7 +98,7 @@ function transformParagraph(node: Paragraph, imageMap?: ImageMap): string {
     // Transform images as block-level elements
     return node.children
       .filter((child) => child.type === 'image')
-      .map((child) => transformImage(child as Image, imageMap || {}))
+      .map((child) => transformImage(child, imageMap || {}))
       .join('\n\n');
   }
 
@@ -121,9 +117,7 @@ function transformList(node: List): string {
   const tag = isOrdered ? 'ol' : 'ul';
   const attrs = isOrdered ? ' {"ordered":true}' : '';
 
-  const items = node.children
-    .map((item) => transformListItem(item))
-    .join('\n');
+  const items = node.children.map((item) => transformListItem(item)).join('\n');
 
   return `<!-- wp:list${attrs} -->
 <${tag} class="wp-block-list">
@@ -197,7 +191,7 @@ function transformBlockquote(node: Blockquote): string {
   const content = node.children
     .map((child) => {
       if (child.type === 'paragraph') {
-        return `<p>${transformInlineContent((child as Paragraph).children)}</p>`;
+        return `<p>${transformInlineContent(child.children)}</p>`;
       }
       return '';
     })
@@ -223,28 +217,34 @@ function transformSeparator(): string {
 /**
  * Transform inline/phrasing content
  */
-function transformInlineContent(nodes: PhrasingContent[], imageMap?: ImageMap): string {
+function transformInlineContent(
+  nodes: PhrasingContent[],
+  imageMap?: ImageMap,
+): string {
   return nodes.map((node) => transformInlineNode(node, imageMap)).join('');
 }
 
 /**
  * Transform a single inline node
  */
-function transformInlineNode(node: PhrasingContent, imageMap?: ImageMap): string {
+function transformInlineNode(
+  node: PhrasingContent,
+  imageMap?: ImageMap,
+): string {
   switch (node.type) {
     case 'text':
-      return escapeHtml((node as Text).value);
+      return escapeHtml(node.value);
     case 'strong':
-      return `<strong>${transformInlineContent((node as Strong).children, imageMap)}</strong>`;
+      return `<strong>${transformInlineContent(node.children, imageMap)}</strong>`;
     case 'emphasis':
-      return `<em>${transformInlineContent((node as Emphasis).children, imageMap)}</em>`;
+      return `<em>${transformInlineContent(node.children, imageMap)}</em>`;
     case 'inlineCode':
-      return `<code>${escapeHtml((node as InlineCode).value)}</code>`;
+      return `<code>${escapeHtml(node.value)}</code>`;
     case 'link':
-      return transformLink(node as Link, imageMap);
+      return transformLink(node, imageMap);
     case 'image':
       // Handle inline images (though they should typically be block-level)
-      return transformInlineImage(node as Image, imageMap || {});
+      return transformInlineImage(node, imageMap || {});
     case 'break':
       return '<br>';
     default:
