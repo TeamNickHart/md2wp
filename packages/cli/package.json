@@ -9,6 +9,18 @@
   ],
   "author": "Nicholas Hart <nickhart@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeamNickHart/md2wp.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/TeamNickHart/md2wp/issues"
+  },
+  "homepage": "https://github.com/TeamNickHart/md2wp#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,7 +28,8 @@
     "md2wp": "./dist/cli.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc",
