@@ -1,6 +1,6 @@
 {
   "name": "@md2wp/core",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Core library for publishing markdown to WordPress",
   "keywords": [
     "markdown",
