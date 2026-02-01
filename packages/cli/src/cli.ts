@@ -8,6 +8,7 @@ import { Command } from 'commander';
 import { version } from './index.js';
 import { initCommand } from './commands/init.js';
 import { publishCommand } from './commands/publish.js';
+import { validateCommand } from './commands/validate.js';
 
 const program = new Command();
 
@@ -46,9 +47,15 @@ program
 
 program
   .command('validate <file>')
-  .description('Validate frontmatter and config')
-  .action((file: string) => {
-    console.log('TODO: Implement validate command', { file });
+  .description('Validate markdown file before publishing')
+  .option('--verbose', 'Show detailed validation output')
+  .action(async (file: string, options: { verbose?: boolean }) => {
+    try {
+      await validateCommand(file, options);
+    } catch (error) {
+      console.error('Error:', (error as Error).message);
+      process.exit(1);
+    }
   });
 
 program
