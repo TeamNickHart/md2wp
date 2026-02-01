@@ -1,6 +1,6 @@
 {
   "name": "@md2wp/cli",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "CLI tool for publishing markdown to WordPress",
   "keywords": [
     "markdown",

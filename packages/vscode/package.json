@@ -1,6 +1,6 @@
 {
   "name": "@md2wp/vscode",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "VS Code extension for publishing markdown to WordPress",
   "keywords": [
     "markdown",
