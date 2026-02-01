@@ -9,6 +9,7 @@ import { version } from './index.js';
 import { initCommand } from './commands/init.js';
 import { publishCommand } from './commands/publish.js';
 import { validateCommand } from './commands/validate.js';
+import { configCommand } from './commands/config.js';
 
 const program = new Command();
 
@@ -61,8 +62,14 @@ program
 program
   .command('config')
   .description('Show current config')
-  .action(() => {
-    console.log('TODO: Implement config command');
+  .option('--verbose', 'Show full configuration JSON')
+  .action(async (options: { verbose?: boolean }) => {
+    try {
+      await configCommand(options);
+    } catch (error) {
+      console.error('Error:', (error as Error).message);
+      process.exit(1);
+    }
   });
 
 program.parse();
