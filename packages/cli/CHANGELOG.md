@@ -1,5 +1,11 @@
 # @md2wp/cli
 
+## 1.0.1
+
+### Patch Changes
+
+- Fix CLI version reporting - now reads from package.json instead of hardcoded value
+
 ## 1.0.0
 
 ### Major Changes
